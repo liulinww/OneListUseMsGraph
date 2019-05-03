@@ -9,7 +9,6 @@ from flask import Flask, abort, redirect, render_template, Blueprint
 
 bp = Blueprint('main', __name__, url_prefix=config.location_path)
 
-
 # Views
 @bp.route('/favicon.ico')
 def favicon():
@@ -56,7 +55,6 @@ def file_size(size):
         if size <= v * 1024:
             return '%s %s' % (round(size/v, 2), k)
     return 'unknown'
-
 
 app = Flask(__name__)
 app.register_blueprint(bp)
