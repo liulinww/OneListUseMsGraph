@@ -127,6 +127,7 @@
               <th class="file">文件</th>
               <th class="updated_at">修改时间</th>
               <th class="size">大小</th>
+              <th class="watch"></th>
             </tr>
             <!-- Dirs -->
             {% for v in info.folders[1:] %}
@@ -146,6 +147,11 @@
               </td>
               <td class="updated_at">{{ v.updated_at | date_format }}</td>
               <td class="size">{{ v.size | file_size }}</td>
+              <td class="watch">
+                <a href="javascript:void()" class="">
+                    <ion-icon name="play-circle"></ion-icon>
+                </a>
+              </td>
             </tr>
             {% endfor %}
           </table>
@@ -155,7 +161,7 @@
   </body>
   <script>
     const root = "{{ url_for('.catch_all') }}"
-
+    const play = "/static/play.html?u="
     function back() {
       if (root != location.pathname) {
         location.href = path_format(root + '{{ path }}/..')
@@ -189,8 +195,13 @@
 
     document.querySelectorAll('[jump-to]').forEach(function(e) {
       e.addEventListener('click', function() {
-        location.href = path_format(root + this.getAttribute('jump-to'))
-      })
+        let url = path_format(root + this.getAttribute('jump-to')); 
+        console.log(url)
+        if(/.mp4/ig.test(url)){
+            url = play + url;
+        }
+        location.href = url
+        })
     })
   </script>
   <script src="https://unpkg.com/ionicons@4.4.4/dist/ionicons.js"></script>
