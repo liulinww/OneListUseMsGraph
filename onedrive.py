@@ -50,10 +50,10 @@ class OneDrive():
         self.resource_id = 'https://graph.microsoft.com/v1.0/me/'
 
     def list_items(self, path=''):
-        url = '%s/drive/root?$expand=children($select=name,size,file,folder,parentReference,lastModifiedDateTime)' % (
+        url = '%s/drive/root?$expand=children' % (
             self.api_url)
         if len(path)>1:
-            url = '%s/drive/root:/%s?$expand=children($select=name,size,file,folder,parentReference,lastModifiedDateTime)' % (
+            url = '%s/drive/root:/%s?$expand=children' % (
             self.api_url, parse.quote(path_format(path)))
         
         
@@ -131,8 +131,8 @@ class OneDrive():
             'full_path': path_format(path + '/' + item['name']),
             'updated_at': item['lastModifiedDateTime']
         }
-        if '@content.downloadUrl' in item:
-            dic['download_url'] = item['@content.downloadUrl']
+        if '@microsoft.graph.downloadUrl' in item:
+            dic['download_url'] = item['@microsoft.graph.downloadUrl']
 
         if 'file' in item:
             info.files.append(dic)
