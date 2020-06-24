@@ -35,7 +35,6 @@ class OneDrive():
             'redirect_uri': 'http://localhost/onedrive-login',
             'refresh_token': self.refresh_token,
             'grant_type': 'refresh_token',
-            'resource': resource
         })
 
         self.access_token = res['access_token']
